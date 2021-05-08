@@ -18,10 +18,8 @@ public class HelloWorldResourceTest {
 
     @Before
     public void setUp() throws Exception {
-        // start the server
         server = Main.startServer();
-        // create the client
-        Client c = ClientBuilder.newClient();
+        Client client = ClientBuilder.newClient();
 
         // uncomment the following line if you want to enable
         // support for JSON in the client (you also have to uncomment
@@ -29,12 +27,12 @@ public class HelloWorldResourceTest {
         // --
         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
-        target = c.target(Main.BASE_URI);
+        target = client.target(Main.BASE_URI);
     }
 
     @After
     public void tearDown() throws Exception {
-        server.stop();
+        server.shutdown().get();
     }
 
     /**
@@ -43,6 +41,6 @@ public class HelloWorldResourceTest {
     @Test
     public void testGetIt() {
         String responseMsg = target.path("hello").request().get(String.class);
-        assertEquals("Hello World!\n", responseMsg);
+        assertEquals("{\"message\": \"Hello CodeCommit!\"}\n", responseMsg);
     }
 }
