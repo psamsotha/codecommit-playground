@@ -8,4 +8,5 @@ dependency-reduced-pom.xml
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-
+# Zip artiface to send to S3 for CodeBuild
+/*.zip

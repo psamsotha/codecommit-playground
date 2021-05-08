@@ -1,24 +1,38 @@
 #!/bin/bash
 
+print_usage() {
+    echo ""
+    echo "Usage:"
+    echo "$  scripts/archive [options]"
+    echo "   Options:"
+    echo "     -v | --version"
+    echo "         The version suffixed to the archive. Requires a version argument."
+    echo "         Without this option, there will be no version suffixed."
+    echo ""
+}
 
 while [ -n "$1" ]; do
     case "$1" in
         -v | --version)
-            version="$2"
-            if [ -z $version ]; then
+            VERSION="$2"
+            if [ -z "$VERSION" ]; then
                 echo "No version argument specified"
+                print_usage
                 exit
             fi
-            shift;;
-        *) break
+            shift
+            ;;
+        -h | --help)
+            print_usage
+            exit
+            ;;
+        *) break ;;
     esac
     shift
 done
 
-if [ -n "$version" ]; then
-  version="-${version}"
-fi
-file="codecommit-playground-input${version}.zip"
-echo "Creating zip archive $file"
+VERSION=${VERSION:+"-${VERSION}"}
+FILE="codecommit-playground-input${VERSION}.zip"
+echo "Creating zip archive $FILE"
 
-git archive -o "$file" HEAD
+git archive -o "$FILE" HEAD
