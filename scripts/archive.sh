@@ -1,0 +1,1 @@
+git archive -o codecommit-playground-input.zip HEAD
