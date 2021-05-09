@@ -3,36 +3,49 @@
 print_usage() {
     echo ""
     echo "Usage:"
-    echo "$  scripts/archive [options]"
+    echo "$  archive [options]"
     echo "   Options:"
     echo "     -v | --version"
     echo "         The version suffixed to the archive. Requires a version argument."
     echo "         Without this option, there will be no version suffixed."
+    echo "     -f | --file"
+    echo "         The file name for the zip archive. If not specified, the \$pwd name"
+    echo "         will be used."
     echo ""
+}
+
+function check_optarg() {
+    local arg="$1"
+    local argtype="$2"
+    if [ -z "$arg" ]; then
+        echo "$argtype must be specified."
+        print_usage
+        exit
+    fi
+    echo "$arg"
 }
 
 while [ -n "$1" ]; do
     case "$1" in
         -v | --version)
-            VERSION="$2"
-            if [ -z "$VERSION" ]; then
-                echo "No version argument specified"
-                print_usage
-                exit
-            fi
-            shift
-            ;;
+            VERSION=$(check_optarg "$2" "Version")
+            shift ;;
+        -f | --file)
+            FILE=$(check_optarg "$2" "File")
+            shift ;;
         -h | --help)
             print_usage
-            exit
-            ;;
-        *) break ;;
+            exit ;;
+        *)
+            print_usage
+            break ;;
     esac
     shift
 done
 
 VERSION=${VERSION:+"-${VERSION}"}
-FILE="codecommit-playground-input${VERSION}.zip"
-echo "Creating zip archive $FILE"
+FILE=${FILE:-"${PWD##*/}"}
+OUTFILE="$FILE${VERSION}.zip"
+echo "Creating zip archive $OUTFILE"
 
-git archive -o "$FILE" HEAD
+git archive -o "$OUTFILE" HEAD
