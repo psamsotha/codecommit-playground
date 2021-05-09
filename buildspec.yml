@@ -3,16 +3,16 @@ phases:
   install:
     runtime-versions:
       java: corretto11
-    pre-build:
-      commands:
-        - echo Nothing to do in the pre_build phase...
-    build:
-      commands:
-        - echo Build started on `date`
-        - mvn package
-    post_build:
-      commands:
-        - Build completed on `date`
-artifact:
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
   files:
     - target/codecommit-playground-1.0-SNAPSHOT.jar
