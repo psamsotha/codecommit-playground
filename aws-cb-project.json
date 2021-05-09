@@ -1,0 +1,18 @@
+{
+    "name": "codecommit-playground",
+    "description": "Build project for codebuild-playground",
+    "source": {
+        "type": "S3",
+        "location": "codebuild-us-west-2-557623108041-input/codecommit-playground/codecommit-playground-input-1.0-SNAPSHOT.zip"
+    },
+    "artifacts": {
+        "type": "S3",
+        "location": "codebuild-us-west-2-557623108041-output"
+    },
+    "environment": {
+        "type": "LINUX_CONTAINER",
+        "image": "aws/codebuild/amazonlinux2-x86_64-standard:2.0",
+        "computeType": "BUILD_GENERAL1_SMALL"
+    },
+    "serviceRole": "arn:aws:iam::557623108041:role/service-role/codebuild-codecommit-playground-service-role"
+}
