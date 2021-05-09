@@ -11,6 +11,8 @@ print_usage() {
     echo "     -f | --file"
     echo "         The file name for the zip archive. If not specified, the \$pwd name"
     echo "         will be used."
+    echo "     -h | --help"
+    echo "         Prints usage"
     echo ""
 }
 
@@ -37,8 +39,9 @@ while [ -n "$1" ]; do
             print_usage
             exit ;;
         *)
+            echo "$1 not allowed as an argument."
             print_usage
-            break ;;
+            exit ;;
     esac
     shift
 done
