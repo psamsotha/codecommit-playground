@@ -1,4 +1,4 @@
-## AWS Elastic Beanstalk Java SE with Jersey
+## Project to play around with AWS CodeCommit/CodeDeploy/CodePipeline
 
 ### Directions
 
